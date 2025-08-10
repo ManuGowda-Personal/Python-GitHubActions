@@ -8,4 +8,8 @@ version = "0.1.0"
 dependencies = ["flask", "requests"]
 
 [tool.setuptools.packages]
+<<<<<<< HEAD
 find = {}
+=======
+find = {}
+>>>>>>> 6668a5b7450d3ed642d8201e1129b40c66c0eedf
