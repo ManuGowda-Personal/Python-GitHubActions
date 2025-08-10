@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: docker build -t ma8105553244/simple-weather-app:${{ github.run_number }} .
+    - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin 
+    - run: docker push ma8105553244/simple-weather-app:${{ github.run_number }}
+
+    - name: Update Deployment Image Tag
+      run: |
+        sed -i "s|image:.*|image: ma8105553244/simple-weather-app:${{ github.run_number }}|g" KubernetiesManifest/deployment.yaml
+        cat KubernetiesManifest/deployment.yaml
+    
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+          commit_message: "[skip ci] Update deployment image to $IMAGE_NAME:${{github.run_id}}" # Skip CI for this commit
+          file_pattern: 'KubernetiesManifest/deployment.yaml'
+          run: git push
+          token: ${{secrets.GIT_TOKEN}}
+
+  deploy-to-local-minikube:
+    needs: deploy
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to k8's
+      working-directory: KubernetiesManifest
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml

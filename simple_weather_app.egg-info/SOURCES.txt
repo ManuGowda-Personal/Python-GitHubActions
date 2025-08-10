@@ -1,0 +1,6 @@
+pyproject.toml
+simple_weather_app.egg-info/PKG-INFO
+simple_weather_app.egg-info/SOURCES.txt
+simple_weather_app.egg-info/dependency_links.txt
+simple_weather_app.egg-info/requires.txt
+simple_weather_app.egg-info/top_level.txt

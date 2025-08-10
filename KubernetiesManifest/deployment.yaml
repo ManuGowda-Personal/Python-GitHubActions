@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-weather-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-weather-app
+  template:
+    metadata:
+      labels:
+        app: simple-weather-app
+    spec:
+      containers:
+        - name: simple-weather-app
+          image: ma8105553244/simple-weather-app:38
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: IfNotPresent
