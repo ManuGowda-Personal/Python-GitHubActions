@@ -6,3 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "simple_weather_app"
 version = "0.1.0"
 dependencies = ["flask", "requests"]
+
+[tool.setuptools]
+packages = ["content", "layout", "script"]
