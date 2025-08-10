@@ -15,7 +15,7 @@ jobs:
           python-version: "3.11"
       - name: Build code
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
           pip install build
 
@@ -37,7 +37,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
           args: >
-            -Dsonar.projectKey=ManuGowda-Personal_simple_weather_app
+            -Dsonar.projectKey=ManuGowda-Personal_next-js-app
             -Dsonar.organization=manugowda-personal
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
