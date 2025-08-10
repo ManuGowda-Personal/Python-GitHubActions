@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: simple-weather-app
-          image: ma8105553244/simple-weather-app:38
+          image: ma8105553244/simple-weather-app:7
           ports:
             - containerPort: 3000
           imagePullPolicy: IfNotPresent
